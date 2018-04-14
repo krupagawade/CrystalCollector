@@ -1,0 +1,134 @@
+<!Doctype HTML>
+<html>
+    <head>
+        <title>CrystalsCollector</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- Added link to the jQuery Library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+    </head>
+
+    <body>
+        <h1><span class="label label-warning">CrystalsCollector!</span></h1>
+        <div id="textDetail">
+            <p>
+                You will be given a random number at the start of the game.
+            </p>
+            <p>
+                There are four crystals below. By clicking on the crystal you will add a specific amount of points to total score.
+            </p>
+            <p>
+                You will win the game by matching your total score to random number. You lose the game if your score goes above the random number.
+            </p>
+            <p>
+                The value of each crystal is hidden from you until you click on it.
+            </p>
+            <p>
+                Every time when the game starts, the game will change the value of each crystals.
+            </p>
+        </div> 
+        <div id="blockContainer">
+            <div id="randomNo">
+            </div>
+            <div id="totalScore">
+                <h4 id="win">Win :</h4>
+                <h4 id="loss">Lost :</h4>
+            </div>
+        </div>
+        <br>
+        <div id="blockImage">
+                    <input type="image" src="assets/images/image1.jpeg" alt="Image1" id="image1" class="imageShape" value="" width="100px" height="70px">
+                    <input type="image" src="assets/images/image2.jpeg" alt="Image2" id="image2" class="imageShape" value="" width="100px" height="70px">
+                    <input type="image" src="assets/images/image3.jpeg" alt="Image3" id="image3" class="imageShape" value="" width="100px" height="70px">
+                    <input type="image" src="assets/images/image4.jpeg" alt="Image4" id="image4" class="imageShape" value="" width="100px" height="70px">
+        </div>
+        <br>
+        <p id="totalScorelbl">Your total score is :</p>
+        <div id="total">         
+        </div>
+        <button type = "button" class="btn btn-info" id="resetBtn"> Reset the Game </button>
+        
+        <script type="text/javascript">
+            
+        $(document).ready(function() {
+            
+            //declare global variables
+            var rno = 0;
+            var totalCount = 0;
+            var winCount = 0;
+            var lossCount = 0;
+
+            function getRandomNumber(){
+
+                rno = Math.floor(Math.random() * (120 - 19) + 19);
+                $("#randomNo").html("<h3 class='text-center'>"+rno + "</h3");
+                
+                var arr = new Array();
+                var imgNo = 0;
+                for(x=1; x<5; x++){
+                    imgNo = getNumber(); //get new random number
+                     //check if number existed before
+                    for(j=0; j<arr.length; j++){
+                        if(imgNo === arr[j]){
+                            imgNo = getNumber(); //get new random number
+                            j=0; //reset array count to first position to check number again
+                        }//end   if
+                    } // end of for loop for check 
+                    arr[x-1] = imgNo; //add number to array
+                    $("#image"+x).attr("value", imgNo); // add to image
+                }
+
+            } //end of random number generation
+
+            function getNumber(){
+                return Math.floor(Math.random() * (13 - 1) + 1);
+            } // give the random number
+
+            //on click of any image add the number in total count
+            $(".imageShape").on("click", function () {
+//                var r = $(".imageShape").attr(this.value);
+                var r = this.value;
+                totalCount = totalCount + parseInt(r);
+                $("#total").text(totalCount);
+                r = "";
+                if(totalCount > rno){
+
+                    lossCount++;
+                    $("#loss").text("Loss : " + lossCount);
+                    resetGame();
+                }
+                else if (totalCount === rno){
+                    winCount++;
+                    $("#win").text("Win : " + winCount);
+                    resetGame();
+                }
+
+                $("#resetBtn").on("click", function(){
+                    winCount = 0;
+                    lossCount = 0;
+                    $("#win").text("Win : ");
+                    $("#loss").text("Loss : ");
+                    resetGame();
+                });
+
+                function resetGame(){
+                    rno = 0;
+                    totalCount = 0;
+                    $("#total").empty();
+                    getRandomNumber();
+                }
+
+            });
+            
+            getRandomNumber(); // call the function to set the initial values to images and random no.
+        });
+
+    
+        </script>
+
+
+    </body>
+</html>

@@ -1,0 +1,56 @@
+body{
+    background-image: url("../images/backgroundimage.png");
+    margin-left: 10px;
+}
+
+h1{
+    font-size: 3pc;
+}
+
+#textDetail{
+    margin-top: 2%;
+    width: 50%;
+    background-color: blanchedalmond;
+    color: green;
+    font-size: medium;
+    font-weight: bolder;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+#blockContainer{
+    display: flex;
+}
+
+#randomNo{
+    margin-top: 1%;
+    background-color: lightgreen;
+    width: 200px;
+    height: 75px;
+}
+
+#totalScore{
+    margin-top: 1%;
+    margin-left: 1%;
+    background-color: aqua;
+    width: 100px;
+    height: 75px;
+}
+
+#totalScorelbl{
+    background-color: teal;
+    width: 200px;
+    height: 40px;
+    color:white;
+    padding-top: 10px;
+}
+
+#total{
+    background-color: teal;
+    width: 200px;
+    height: 100px;
+    color: white;  
+    text-align: center;
+    vertical-align: middle;
+    font-size: large;  
+}
